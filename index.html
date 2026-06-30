@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRJ – CIT Review and Journal</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #Ed1c24;
+  --red-dark: #b81219;
+  --red-light: #fdf2f2;
+  --gray-bg: #f8f8f8;
+  --border: #ddd;
+  --border-light: #e8e8e8;
+  --text: #333;
+  --text-muted: #666;
+  --text-light: #999;
+  --white: #fff;
+  --nav-bg: #2b2b2b;
+  --sidebar-head: #555;
+}
+
+body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 14px; color: var(--text); background: var(--white); line-height: 1.5; }
+a { color: var(--red); text-decoration: none; }
+a:hover { text-decoration: underline; color: var(--red-dark); }
+
+/* ── TOPBAR ── */
+#topbar {
+  background: var(--red);
+  color: #fff;
+  font-size: 12px;
+  padding: 0 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: stretch;
+}
+.topbar-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; justify-content: flex-end; gap: 0; }
+#topbar a { color: #fff; text-decoration: none; padding: 7px 14px; font-size: 11px; font-weight: 600; letter-spacing: .3px; border-left: 1px solid rgba(255,255,255,.2); }
+#topbar a:hover { background: rgba(0,0,0,.15); text-decoration: none; }
+.topbar-issn { padding: 7px 14px; font-size: 11px; color: rgba(255,255,255,.85); border-left: 1px solid rgba(255,255,255,.2); }
+
+/* ── HEADER ── */
+#header {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+.header-inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 18px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo-area { display: flex; align-items: center; gap: 16px; cursor: pointer; }
+.logo-emblem {
+  width: 60px; height: 60px;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px; font-weight: 800; color: #fff; letter-spacing: 1px;
+  flex-shrink: 0;
+}
+.logo-text h1 { font-size: 20px; font-weight: 800; color: #222; letter-spacing: .5px; line-height: 1.1; }
+.logo-text p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.header-right { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+.header-search { display: flex; border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.header-search input { padding: 6px 10px; font-size: 12px; border: none; outline: none; width: 180px; color: var(--text); }
+.header-search button { background: var(--red); color: #fff; border: none; padding: 6px 12px; font-size: 12px; cursor: pointer; }
+.header-search button:hover { background: var(--red-dark); }
+.header-links { display: flex; gap: 12px; font-size: 12px; }
+.header-links a { color: var(--text-muted); }
+.header-links a:hover { color: var(--red); text-decoration: none; }
+
+/* ── NAV ── */
+#mainnav {
+  background: var(--nav-bg);
+  border-bottom: 3px solid var(--red);
+}
+.nav-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; }
+.nav-item { position: relative; }
+.nav-link {
+  display: block; padding: 12px 18px;
+  font-size: 13px; font-weight: 600; color: #ddd;
+  text-decoration: none; cursor: pointer;
+  border: none; background: none;
+  transition: background .15s, color .15s;
+  white-space: nowrap; letter-spacing: .2px;
+}
+.nav-link:hover, .nav-link.active { background: var(--red); color: #fff; text-decoration: none; }
+.nav-link.has-drop::after { content: ' ▾'; font-size: 10px; }
+.dropdown {
+  display: none; position: absolute; top: 100%; left: 0;
+  background: #fff; min-width: 240px;
+  border: 1px solid var(--border);
+  border-top: 2px solid var(--red);
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  z-index: 300;
+}
+.nav-item:hover .dropdown { display: block; }
+.dropdown a {
+  display: block; padding: 9px 16px;
+  font-size: 13px; color: var(--text);
+  border-bottom: 1px solid var(--border-light);
+  text-decoration: none;
+}
+.dropdown a:last-child { border-bottom: none; }
+.dropdown a:hover { background: var(--red-light); color: var(--red); text-decoration: none; }
+
+/* ── BREADCRUMB ── */
+.breadcrumb-bar {
+  background: var(--gray-bg);
+  border-bottom: 1px solid var(--border);
+  font-size: 12px; color: var(--text-muted);
+}
+.breadcrumb-bar .inner { max-width: 1200px; margin: 0 auto; padding: 8px 20px; }
+.breadcrumb-bar a { color: var(--text-muted); }
+.breadcrumb-bar a:hover { color: var(--red); text-decoration: underline; }
+.breadcrumb-bar span { color: var(--text-light); margin: 0 5px; }
+
+/* ── PAGE WRAP ── */
+.page-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 20px 60px; }
+
+/* ── HOME LAYOUT ── */
+.home-cols { display: flex; gap: 32px; align-items: flex-start; }
+.home-main { flex: 1; min-width: 0; }
+.home-sidebar { width: 256px; flex-shrink: 0; }
+
+/* ── ABOUT SECTION ── */
+.about-section { border: 1px solid var(--border); margin-bottom: 24px; }
+.about-section-title {
+  background: var(--gray-bg); border-bottom: 1px solid var(--border);
+  padding: 10px 16px; font-size: 13px; font-weight: 700;
+  color: #222; display: flex; align-items: center; gap: 8px;
+}
+.about-section-title::before { content: ''; display: block; width: 3px; height: 14px; background: var(--red); }
+.about-section-body { padding: 16px; font-size: 13px; line-height: 1.7; color: var(--text); }
+.about-section-body p { margin-bottom: 10px; }
+.about-section-body p:last-child { margin-bottom: 0; }
+
+/* ── CURRENT ISSUE BLOCK ── */
+.issue-header {
+  border: 1px solid var(--border); margin-bottom: 24px;
+}
+.issue-header-bar {
+  background: var(--nav-bg); color: #fff;
+  padding: 10px 16px; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; gap: 8px;
+}
+.issue-header-bar::before { content: ''; display: block; width: 3px; height: 14px; background: var(--red); }
+.issue-header-body { padding: 16px; display: flex; gap: 18px; align-items: flex-start; }
+.issue-cover {
+  width: 90px; height: 120px; flex-shrink: 0;
+  background: linear-gradient(160deg, #1a1a2e, #16213e, #Ed1c24 200%);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid var(--border);
+}
+.issue-cover span { font-size: 9px; color: rgba(255,255,255,.4); text-transform: uppercase; letter-spacing: 1px; }
+.issue-meta h3 { font-size: 14px; font-weight: 700; color: #222; margin-bottom: 6px; }
+.issue-meta p { font-size: 12px; color: var(--text-muted); margin-bottom: 4px; }
+.issue-meta a.view-btn {
+  display: inline-block; margin-top: 10px;
+  padding: 6px 14px; background: var(--red); color: #fff;
+  font-size: 12px; font-weight: 600; border-radius: 2px;
+  text-decoration: none;
+}
+.issue-meta a.view-btn:hover { background: var(--red-dark); text-decoration: none; }
+
+/* ── ARTICLE LIST (OJS style) ── */
+.article-section { border: 1px solid var(--border); margin-bottom: 24px; }
+.article-section-bar {
+  background: var(--gray-bg); border-bottom: 1px solid var(--border);
+  padding: 10px 16px; font-size: 13px; font-weight: 700;
+  color: #222; display: flex; align-items: center; gap: 8px;
+}
+.article-section-bar::before { content: ''; display: block; width: 3px; height: 14px; background: var(--red); }
+.article-entry {
+  padding: 14px 16px; border-bottom: 1px solid var(--border-light);
+}
+.article-entry:last-child { border-bottom: none; }
+.article-entry h4 { font-size: 14px; font-weight: 600; margin-bottom: 5px; line-height: 1.4; }
+.article-entry h4 a { color: #222; }
+.article-entry h4 a:hover { color: var(--red); text-decoration: underline; }
+.article-authors { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; }
+.article-pages { font-size: 12px; color: var(--text-light); }
+.article-links { margin-top: 7px; display: flex; gap: 8px; flex-wrap: wrap; }
+.article-link-btn {
+  display: inline-flex; align-items: center; gap: 4px;
+  padding: 3px 10px; border: 1px solid var(--border);
+  font-size: 11px; color: var(--text-muted); border-radius: 2px;
+  text-decoration: none; background: var(--white);
+  transition: background .12s, border-color .12s;
+}
+.article-link-btn:hover { background: var(--red); color: #fff; border-color: var(--red); text-decoration: none; }
+.article-link-btn.pdf { background: var(--red); color: #fff; border-color: var(--red); }
+.article-link-btn.pdf:hover { background: var(--red-dark); }
+.abstract-toggle-btn { background: none; border: none; color: var(--red); font-size: 11px; cursor: pointer; padding: 0; margin-top: 4px; }
+.abstract-toggle-btn:hover { text-decoration: underline; }
+.abstract-text { display: none; margin-top: 8px; font-size: 13px; color: var(--text); line-height: 1.65; background: var(--gray-bg); border-left: 3px solid var(--red); padding: 10px 12px; }
+.abstract-text.open { display: block; }
+.keywords-line { font-size: 11px; color: var(--text-muted); margin-top: 5px; }
+.keywords-line strong { color: #555; }
+
+/* ── TABS (journal issues selector) ── */
+.tab-row { display: flex; flex-wrap: wrap; border-bottom: 2px solid var(--border); margin-bottom: 0; }
+.tab-btn {
+  padding: 8px 14px; font-size: 12px; font-weight: 600; color: var(--text-muted);
+  border: 1px solid var(--border); border-bottom: none; background: var(--gray-bg);
+  cursor: pointer; margin-right: 3px; margin-bottom: -2px;
+  border-radius: 2px 2px 0 0; transition: all .12s;
+}
+.tab-btn:hover { color: var(--red); }
+.tab-btn.active { background: var(--red); color: #fff; border-color: var(--red); }
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+/* ── SIDEBAR ── */
+.sb-block { border: 1px solid var(--border); margin-bottom: 18px; }
+.sb-head {
+  background: var(--gray-bg); border-bottom: 1px solid var(--border);
+  padding: 9px 14px; font-size: 12px; font-weight: 700; color: #333;
+  display: flex; align-items: center; gap: 6px;
+}
+.sb-head::before { content: ''; display: block; width: 3px; height: 12px; background: var(--red); flex-shrink: 0; }
+.sb-body { padding: 12px 14px; }
+.sb-body p { font-size: 12px; line-height: 1.65; color: var(--text-muted); margin-bottom: 8px; }
+.sb-body p:last-child { margin-bottom: 0; }
+.sb-body a { font-size: 12px; color: var(--red); }
+.sb-list { list-style: none; }
+.sb-list li { border-bottom: 1px solid var(--border-light); }
+.sb-list li:last-child { border-bottom: none; }
+.sb-list a { display: block; padding: 7px 0; font-size: 12px; color: var(--text); text-decoration: none; }
+.sb-list a:hover { color: var(--red); }
+.sb-placeholder { width: 100%; height: 80px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #aaa; text-transform: uppercase; letter-spacing: 1px; border: 1px solid var(--border); margin-bottom: 6px; }
+.sb-placeholder.tall { height: 120px; }
+.indexing-placeholder { display: flex; flex-direction: column; gap: 8px; }
+.index-badge { background: var(--gray-bg); border: 1px solid var(--border); padding: 8px 12px; font-size: 11px; font-weight: 700; color: #444; text-align: center; letter-spacing: .5px; }
+.index-badge.scopus { color: var(--white); background: #E9711C; border-color: #E9711C; }
+.btn-submit-main {
+  display: block; text-align: center; padding: 10px 0;
+  background: var(--red); color: #fff; font-size: 13px; font-weight: 700;
+  text-decoration: none; border-radius: 2px; margin-bottom: 14px;
+}
+.btn-submit-main:hover { background: var(--red-dark); text-decoration: none; }
+.issn-display { font-size: 12px; font-weight: 700; color: #333; text-align: center; padding: 8px; background: var(--gray-bg); border: 1px solid var(--border); margin-bottom: 4px; }
+
+/* ── GENERIC PAGE CONTENT ── */
+.page-content h1 { font-size: 22px; font-weight: 700; color: #222; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--border); }
+.page-content h2 { font-size: 16px; font-weight: 700; color: #222; margin: 24px 0 10px; }
+.page-content h3 { font-size: 14px; font-weight: 700; color: #444; margin: 16px 0 6px; }
+.page-content p { font-size: 13px; line-height: 1.7; color: var(--text); margin-bottom: 12px; }
+.page-content ul { margin: 0 0 14px 20px; }
+.page-content li { font-size: 13px; line-height: 1.7; color: var(--text); margin-bottom: 4px; }
+.page-content .page-cols { display: flex; gap: 32px; }
+.page-content .page-col-main { flex: 1; min-width: 0; }
+
+/* ── TABLE ── */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 14px 0; }
+.data-table th { background: var(--nav-bg); color: #fff; padding: 9px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: .6px; font-weight: 700; }
+.data-table td { padding: 8px 12px; border-bottom: 1px solid var(--border-light); vertical-align: top; }
+.data-table tr:nth-child(even) td { background: var(--gray-bg); }
+.data-table tr:hover td { background: var(--red-light); }
+
+/* ── CONTACT FORM ── */
+.form-field { margin-bottom: 14px; }
+.form-field label { display: block; font-size: 12px; font-weight: 700; color: #444; margin-bottom: 4px; }
+.form-field input, .form-field textarea, .form-field select {
+  width: 100%; padding: 8px 10px; border: 1px solid var(--border);
+  font-size: 13px; color: var(--text); font-family: inherit;
+  border-radius: 2px;
+}
+.form-field input:focus, .form-field textarea:focus { outline: none; border-color: var(--red); }
+.form-field textarea { height: 110px; resize: vertical; }
+.btn-form { padding: 9px 22px; background: var(--red); color: #fff; border: none; font-size: 13px; font-weight: 700; border-radius: 2px; cursor: pointer; }
+.btn-form:hover { background: var(--red-dark); }
+.info-box { background: var(--gray-bg); border: 1px solid var(--border); border-left: 3px solid var(--red); padding: 14px 16px; margin: 16px 0; font-size: 13px; line-height: 1.7; }
+
+/* ── ISSUES ARCHIVE GRID ── */
+.archive-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 18px; }
+.archive-card { border: 1px solid var(--border); cursor: pointer; transition: box-shadow .15s; }
+.archive-card:hover { box-shadow: 0 3px 10px rgba(0,0,0,.1); }
+.archive-cover {
+  width: 100%; aspect-ratio: 3/4;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 9px; color: rgba(255,255,255,.35); text-transform: uppercase; letter-spacing: 1px;
+}
+.archive-card-body { padding: 10px 12px; }
+.archive-card-body h3 { font-size: 12px; font-weight: 700; color: #222; line-height: 1.35; }
+.archive-card-body p { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+.archive-year-tag { display: inline-block; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 1px; margin-bottom: 5px; }
+
+/* ── STEPS ── */
+.steps-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin: 20px 0; }
+.step-box { border: 1px solid var(--border); padding: 18px 16px; }
+.step-num { width: 32px; height: 32px; background: var(--red); color: #fff; font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+.step-box h3 { font-size: 13px; font-weight: 700; margin-bottom: 6px; color: #222; }
+.step-box p { font-size: 12px; color: var(--text-muted); }
+
+/* ── ALL ARTICLES ── */
+.all-articles-item { padding: 14px 0; border-bottom: 1px solid var(--border-light); display: flex; gap: 14px; }
+.all-articles-item:last-child { border-bottom: none; }
+.all-articles-year { min-width: 46px; height: 46px; background: var(--nav-bg); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; text-align: center; line-height: 1.2; flex-shrink: 0; }
+.all-articles-info h4 { font-size: 13px; font-weight: 600; color: #222; margin-bottom: 3px; line-height: 1.4; }
+.all-articles-info h4 a { color: #222; }
+.all-articles-info h4 a:hover { color: var(--red); }
+.all-articles-info p { font-size: 12px; color: var(--text-muted); }
+
+/* ── FOOTER ── */
+#footer { background: var(--nav-bg); color: #aaa; margin-top: 40px; border-top: 3px solid var(--red); }
+.footer-inner { max-width: 1200px; margin: 0 auto; padding: 32px 20px 24px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 32px; }
+.footer-col h4 { color: #fff; font-size: 12px; text-transform: uppercase; letter-spacing: .8px; margin-bottom: 14px; padding-bottom: 6px; border-bottom: 1px solid #444; }
+.footer-col p { font-size: 12px; line-height: 1.7; }
+.footer-col a { display: block; font-size: 12px; color: #aaa; margin-bottom: 6px; text-decoration: none; }
+.footer-col a:hover { color: #fff; text-decoration: none; }
+.footer-bottom { max-width: 1200px; margin: 0 auto; border-top: 1px solid #444; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; color: #666; }
+.footer-issn { background: var(--red); color: #fff; font-size: 11px; font-weight: 700; padding: 3px 10px; letter-spacing: .5px; }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 880px) {
+  .home-cols { flex-direction: column; }
+  .home-sidebar { width: 100%; }
+  .footer-inner { grid-template-columns: 1fr 1fr; }
+  .steps-row { grid-template-columns: 1fr; }
+  .header-inner { flex-wrap: wrap; gap: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div id="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-issn">ISSN: 2960-2831</span>
+    <a href="#" onclick="navigate('contact');return false;">Contact</a>
+    <a href="https://cit.edu.al" target="_blank">CIT University ↗</a>
+    <a href="#" onclick="navigate('submit');return false;">Register / Submit</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div id="header">
+  <div class="header-inner">
+    <div class="logo-area" onclick="navigate('home')">
+      <div class="logo-emblem">CRJ</div>
+      <div class="logo-text">
+        <h1>CIT Review and Journal</h1>
+        <p>Canadian Institute of Technology, Tirana, Albania</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-search">
+        <input type="text" placeholder="Search articles…">
+        <button>Search</button>
+      </div>
+      <div class="header-links">
+        <a href="#" onclick="navigate('submit');return false;">Submit Manuscript</a>
+        <a href="#" onclick="navigate('instructions');return false;">Author Guidelines</a>
+        <a href="#" onclick="navigate('editorial-board');return false;">Editorial Board</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN NAV -->
+<div id="mainnav">
+  <div class="nav-inner">
+    <div class="nav-item">
+      <button class="nav-link" onclick="navigate('home')">Current Issue</button>
+    </div>
+    <div class="nav-item">
+      <button class="nav-link" onclick="navigate('issues')">Archives</button>
+    </div>
+    <div class="nav-item">
+      <button class="nav-link has-drop">About</button>
+      <div class="dropdown">
+        <a href="#" onclick="navigate('aims');return false;">Aims and Scope</a>
+        <a href="#" onclick="navigate('vision');return false;">Vision and Mission</a>
+        <a href="#" onclick="navigate('integration');return false;">Integration with CIT</a>
+        <a href="#" onclick="navigate('history');return false;">Journal History</a>
+        <a href="#" onclick="navigate('statistics');return false;">Statistics and JAR</a>
+        <a href="#" onclick="navigate('editorial-board');return false;">Editorial Board</a>
+        <a href="#" onclick="navigate('editorial-office');return false;">Editorial Office</a>
+        <a href="#" onclick="navigate('openaccess');return false;">Open Access Statement</a>
+        <a href="#" onclick="navigate('indexing');return false;">Indexing &amp; Abstracting</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-link has-drop">Author Guidelines</button>
+      <div class="dropdown">
+        <a href="#" onclick="navigate('instructions');return false;">Instructions for Authors</a>
+        <a href="#" onclick="navigate('submit');return false;">Submit a Manuscript</a>
+        <a href="#" onclick="navigate('template');return false;">Paper Template</a>
+        <a href="#" onclick="navigate('charges');return false;">Author Charges (APC)</a>
+        <a href="#" onclick="navigate('copyright');return false;">Copyright Terms</a>
+        <a href="#" onclick="navigate('licensing');return false;">Licensing Terms</a>
+        <a href="#" onclick="navigate('peerreview');return false;">Peer Review Policy</a>
+        <a href="#" onclick="navigate('plagiarism');return false;">Plagiarism Statement</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <button class="nav-link" onclick="navigate('articles')">All Articles</button>
+    </div>
+    <div class="nav-item">
+      <button class="nav-link" onclick="navigate('contact')">Contact</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="page-home" class="page active">
+  <div class="page-wrap">
+    <div class="home-cols">
+      <div class="home-main">
+
+        <!-- About blurb -->
+        <div class="about-section">
+          <div class="about-section-title">About the Journal</div>
+          <div class="about-section-body">
+            <p><strong>CIT Review Journal (CRJ) (ISSN: 2960-2831)</strong> is an international, double-blind peer-reviewed, open access journal serving as a platform for publishing original research in the fields of Economics, Business, and Information Technology. CRJ actively encourages interdisciplinary submissions bridging business, economics, cybersecurity, data science, and artificial intelligence, shedding light on their impacts on management, organizations, and society.</p>
+            <p>Published bi-annually (May and November) by the <strong>Canadian Institute of Technology (CIT)</strong>, Tirana, Albania. All articles are freely available online immediately upon publication under a CC BY 4.0 license.</p>
+          </div>
+        </div>
+
+        <!-- Current issue header -->
+        <div class="issue-header">
+          <div class="issue-header-bar">Current Issue</div>
+          <div class="issue-header-body">
+            <div class="issue-cover"><span>Cover</span></div>
+            <div class="issue-meta">
+              <h3 id="current-issue-title">CIT Review Journal — May Issue 2026</h3>
+              <p id="current-issue-pub">Published: 2026-05-01</p>
+              <p id="current-issue-count"></p>
+              <a href="#" onclick="navigate('issues');return false;" class="view-btn">View Full Issue</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Issue tabs -->
+        <div class="article-section">
+          <div class="article-section-bar">Browse Issues</div>
+          <div style="padding:12px 16px 0;">
+            <div class="tab-row" id="journalTabs"></div>
+          </div>
+          <div id="journalTabContents"></div>
+        </div>
+
+      </div><!-- /home-main -->
+
+      <!-- SIDEBAR -->
+      <aside class="home-sidebar">
+        <a href="#" onclick="navigate('submit');return false;" class="btn-submit-main">📄 Submit a Manuscript</a>
+
+        <div class="sb-block">
+          <div class="sb-head">Journal Information</div>
+          <div class="sb-body">
+            <div class="issn-display">ISSN: 2960-2831</div>
+            <p><strong>Type:</strong> Open Access</p>
+            <p><strong>Frequency:</strong> Bi-annual (May &amp; November)</p>
+            <p><strong>Language:</strong> English</p>
+            <p><strong>Review:</strong> Double-blind peer review</p>
+            <p><strong>Publisher:</strong> Canadian Institute of Technology, Tirana, Albania</p>
+            <p><strong>Started:</strong> 2014</p>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-head">Indexing &amp; Abstracting</div>
+          <div class="sb-body">
+            <div class="indexing-placeholder">
+              <div class="index-badge scopus">SCOPUS (Target)</div>
+              <div class="index-badge">Google Scholar</div>
+              <div class="index-badge">CrossRef / DOI</div>
+              <div class="index-badge">DOAJ (Applied)</div>
+            </div>
+            <p style="margin-top:10px;">CRJ is actively pursuing indexing in major academic databases to maximise research visibility.</p>
+            <a href="#" onclick="navigate('indexing');return false;">→ Full Indexing Details</a>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-head">Quick Navigation</div>
+          <div class="sb-body">
+            <ul class="sb-list">
+              <li><a href="#" onclick="navigate('aims');return false;">Aims and Scope</a></li>
+              <li><a href="#" onclick="navigate('editorial-board');return false;">Editorial Board</a></li>
+              <li><a href="#" onclick="navigate('instructions');return false;">Instructions for Authors</a></li>
+              <li><a href="#" onclick="navigate('template');return false;">Paper Template</a></li>
+              <li><a href="#" onclick="navigate('peerreview');return false;">Peer Review Policy</a></li>
+              <li><a href="#" onclick="navigate('charges');return false;">Author Charges (APC)</a></li>
+              <li><a href="#" onclick="navigate('openaccess');return false;">Open Access Statement</a></li>
+              <li><a href="#" onclick="navigate('contact');return false;">Contact Editorial Office</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-head">Information For</div>
+          <div class="sb-body">
+            <ul class="sb-list">
+              <li><a href="#" onclick="navigate('instructions');return false;">Authors</a></li>
+              <li><a href="#" onclick="navigate('peerreview');return false;">Reviewers</a></li>
+              <li><a href="#" onclick="navigate('editorial-office');return false;">Librarians &amp; Institutions</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="sb-block">
+          <div class="sb-head">Publisher</div>
+          <div class="sb-body">
+            <div class="sb-placeholder">CIT Logo</div>
+            <p>Canadian Institute of Technology<br>Street "Xhanfize Keko", No. 12<br>Tirana, Albania 1001</p>
+            <p style="margin-top:6px;"><a href="https://cit.edu.al" target="_blank">cit.edu.al ↗</a></p>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ ARCHIVES / ISSUES ══════════ -->
+<div id="page-issues" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Archives</div></div>
+  <div class="page-wrap page-content">
+    <h1>Archives</h1>
+    <div class="archive-grid" id="archiveGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════ ALL ARTICLES ══════════ -->
+<div id="page-articles" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>All Articles</div></div>
+  <div class="page-wrap page-content">
+    <h1>All Articles</h1>
+    <p>Complete listing of all published articles across all CRJ issues.</p>
+    <div id="allArticlesList" style="margin-top:20px;"></div>
+  </div>
+</div>
+
+<!-- ══════════ AIMS ══════════ -->
+<div id="page-aims" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span><a href="#" onclick="navigate('aims');return false;">About</a><span>/</span>Aims and Scope</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Aims and Scope</h1>
+    <h2>Aims</h2>
+    <p><strong>CIT Review Journal (CRJ)</strong> ISSN: 2960-2831 is an international, peer-reviewed, open access journal (free for readers) that serves as a platform for publishing original research in the fields of Economics, Business, and Information Technology. CRJ actively encourages submissions that integrate interdisciplinary research from domains like business, economics, cybersecurity, data science, and artificial intelligence, shedding light on their impacts on management, organizations, and society at large. In order to uphold its standards, CRJ conducts prompt and thorough reviews in accordance with accepted publication procedures.</p>
+    <h2>Scope</h2>
+    <h3>Economics and Business</h3>
+    <ul><li>Macroeconomics and microeconomics</li><li>Financial markets and institutions</li><li>International trade and globalization</li><li>Entrepreneurship and innovation</li><li>Marketing, management, and organizational behavior</li><li>Accounting and auditing</li><li>Human resource management</li><li>Strategic management and corporate governance</li></ul>
+    <h3>Information Technology</h3>
+    <ul><li>Artificial intelligence and machine learning</li><li>Cybersecurity and information security</li><li>Data science and big data analytics</li><li>Software engineering and systems design</li><li>Internet of Things (IoT)</li><li>Cloud computing and distributed systems</li><li>Digital transformation</li></ul>
+    <h3>Interdisciplinary Research</h3>
+    <p>CRJ particularly welcomes manuscripts that bridge business and technology, demonstrating how digital innovations transform economic systems, organizational structures, and societal well-being.</p>
+  </div><aside class="home-sidebar" id="aims-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ VISION ══════════ -->
+<div id="page-vision" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Vision and Mission</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Vision and Mission</h1>
+    <h2>Vision</h2>
+    <p>To be a leading international academic journal recognized for excellence in disseminating high-quality, interdisciplinary research that bridges the fields of Economics, Business, and Information Technology — contributing to knowledge creation, innovation, and sustainable development in Albania and the Western Balkan region.</p>
+    <h2>Mission</h2>
+    <p>The mission of CIT Review Journal is to provide a rigorous, peer-reviewed platform for researchers, academics, practitioners, and policymakers to share original and impactful research. CRJ is committed to:</p>
+    <ul><li>Promoting open access to scientific knowledge</li><li>Supporting emerging researchers and scholars from the Western Balkans and beyond</li><li>Facilitating cross-disciplinary dialogue between economics, business, and technology</li><li>Upholding the highest standards of academic integrity and ethical publication</li><li>Contributing to the evidence base for policy and decision-making</li></ul>
+  </div><aside class="home-sidebar" id="vision-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ INTEGRATION ══════════ -->
+<div id="page-integration" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Integration with CIT</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Integration with CIT</h1>
+    <p>CIT Review Journal (CRJ) is closely integrated with the <strong>Canadian Institute of Technology (CIT)</strong>, one of Albania's leading higher education institutions. This integration supports national and international scientific research and publication.</p>
+    <h2>Research Support</h2>
+    <p>CIT provides institutional support, editorial infrastructure, and academic resources enabling CRJ to operate as a high-quality, peer-reviewed open access journal. Faculty and researchers from CIT serve on the editorial board and as peer reviewers.</p>
+    <h2>National and International Collaboration</h2>
+    <p>Through its CIT affiliation, CRJ maintains partnerships with universities and research institutions across the Western Balkans, Europe, and internationally — enabling diverse, high-quality submissions from researchers worldwide.</p>
+    <div class="sb-placeholder tall" style="margin-top:20px;border-radius:2px;">CIT Campus / Partnership Image</div>
+  </div><aside class="home-sidebar" id="int-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ HISTORY ══════════ -->
+<div id="page-history" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Journal History</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Journal History</h1>
+    <p>CIT Review Journal (CRJ) was established by the Canadian Institute of Technology (CIT) in Tirana, Albania, as part of the institution's commitment to advancing academic research and scholarship in the region.</p>
+    <h2>Milestones</h2>
+    <ul>
+      <li><strong>2014</strong> — CRJ founded as the official academic journal of the Canadian Institute of Technology</li>
+      <li><strong>2019</strong> — First international issues published with scholars from the Western Balkans</li>
+      <li><strong>2022</strong> — Journal relaunch with bi-annual publication schedule (May and November)</li>
+      <li><strong>2023</strong> — DOI assignment system introduced; journal pursued academic database indexing</li>
+      <li><strong>2024</strong> — ISSN 2960-2831 officially registered; editorial board expanded internationally</li>
+      <li><strong>2025</strong> — Growing international authorship across 10+ countries</li>
+      <li><strong>2026</strong> — May 2026 Issue published; Scopus indexing application in progress</li>
+    </ul>
+  </div><aside class="home-sidebar" id="hist-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ STATISTICS ══════════ -->
+<div id="page-statistics" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Statistics and JAR</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Statistics and Journal Activity Report (JAR)</h1>
+    <div class="sb-placeholder" style="height:180px;margin-bottom:20px;">Statistics / Charts Placeholder</div>
+    <h2>Publication Statistics</h2>
+    <table class="data-table">
+      <thead><tr><th>Year</th><th>Issues</th><th>Articles</th><th>Countries</th></tr></thead>
+      <tbody>
+        <tr><td>2022</td><td>2</td><td>15</td><td>6</td></tr>
+        <tr><td>2023</td><td>2</td><td>13</td><td>7</td></tr>
+        <tr><td>2024</td><td>2</td><td>11</td><td>8</td></tr>
+        <tr><td>2025</td><td>2</td><td>10</td><td>9</td></tr>
+        <tr><td>2026</td><td>1 (to date)</td><td>1</td><td>2</td></tr>
+      </tbody>
+    </table>
+  </div><aside class="home-sidebar" id="stats-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ EDITORIAL BOARD ══════════ -->
+<div id="page-editorial-board" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Editorial Board</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Editorial Board</h1>
+    <p>CRJ maintains a diverse and experienced Editorial Board drawn from leading universities across Albania and internationally.</p>
+    <h2>Editor-in-Chief</h2>
+    <table class="data-table"><thead><tr><th>Name</th><th>Institution</th><th>Country</th><th>Specialization</th></tr></thead>
+    <tbody><tr><td><strong>[Editor-in-Chief Name]</strong></td><td>Canadian Institute of Technology</td><td>Albania</td><td>Economics &amp; Business</td></tr></tbody></table>
+    <h2>Associate Editors</h2>
+    <table class="data-table"><thead><tr><th>Name</th><th>Institution</th><th>Country</th><th>Specialization</th></tr></thead>
+    <tbody>
+      <tr><td>Assoc. Prof. Reis Mulita</td><td>Canadian Institute of Technology</td><td>Albania</td><td>Economics, Circular Economy</td></tr>
+      <tr><td>Dr. Enriko Ceko</td><td>Canadian Institute of Technology</td><td>Albania</td><td>Quality Management, ISO Standards</td></tr>
+      <tr><td>Dr. Wassim Ahmad</td><td>Canadian Institute of Technology</td><td>Albania</td><td>Software Engineering, AI</td></tr>
+      <tr><td>Dr. Nihat Adar</td><td>Canadian Institute of Technology</td><td>Albania</td><td>Computer Science</td></tr>
+      <tr><td>Prof. Dimitrios A. Karras</td><td>Canadian Institute of Technology</td><td>Albania / Greece</td><td>AI, Engineering</td></tr>
+      <tr><td>Prof. Dr. Klodiana Gorica</td><td>University of Tirana</td><td>Albania</td><td>Marketing, Business Strategy</td></tr>
+      <tr><td>Prof. Dr. Ljupco Sotiroski</td><td>Int'l University Europa Prima</td><td>N. Macedonia</td><td>Transport, Management</td></tr>
+    </tbody></table>
+    <h2>International Review Board</h2>
+    <table class="data-table"><thead><tr><th>Name</th><th>Institution</th><th>Country</th></tr></thead>
+    <tbody>
+      <tr><td>Prof. Merale Fetahi-Vehapi</td><td>University of Tetovo</td><td>N. Macedonia</td></tr>
+      <tr><td>Prof. Jaroslav Kollmann</td><td>University of Žilina</td><td>Slovakia</td></tr>
+      <tr><td>Prof. Jonatan Lerga</td><td>University of Rijeka</td><td>Croatia</td></tr>
+      <tr><td>Prof. Savaş Okyay</td><td>Eskişehir Osmangazi University</td><td>Türkiye</td></tr>
+      <tr><td>Prof. Elena Bundaleska</td><td>University American College Skopje</td><td>N. Macedonia</td></tr>
+    </tbody></table>
+  </div><aside class="home-sidebar" id="eb-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ EDITORIAL OFFICE ══════════ -->
+<div id="page-editorial-office" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Editorial Office</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Editorial Office</h1>
+    <p>The CRJ Editorial Office is housed at the Canadian Institute of Technology in Tirana, Albania. The office coordinates peer review, manuscript processing, and publication.</p>
+    <div class="info-box">
+      <p><strong>Address:</strong> Street "Xhanfize Keko", No. 12, Tirana, Albania, Postcode 1001</p>
+      <p><strong>Email:</strong> <a href="mailto:crj@cit.edu.al">crj@cit.edu.al</a></p>
+      <p><strong>Institution:</strong> Canadian Institute of Technology (CIT)</p>
+      <p><strong>Website:</strong> <a href="https://cit.edu.al" target="_blank">https://cit.edu.al</a></p>
+    </div>
+    <h2>Responsibilities</h2>
+    <ul><li>Receiving and tracking manuscript submissions</li><li>Coordinating the double-blind peer review process</li><li>Communicating decisions to authors</li><li>Managing the publication calendar and issue releases</li><li>Maintaining journal indexing and metadata</li></ul>
+  </div><aside class="home-sidebar" id="eo-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ OPEN ACCESS ══════════ -->
+<div id="page-openaccess" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Open Access Statement</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Open Access Statement</h1>
+    <p>CIT Review Journal (CRJ) is a fully open access publication. All published articles are freely available online immediately upon publication, with no subscription or pay-per-view fees for readers.</p>
+    <h2>Our Commitment</h2>
+    <p>We believe that open access to research accelerates scientific discovery, promotes global knowledge sharing, and enables researchers in developing countries to participate fully in the global scientific community.</p>
+    <ul><li>All content is freely available at no cost to readers worldwide</li><li>Articles are published under CC BY 4.0 license</li><li>Full text, data, and supplementary materials are openly accessible</li><li>Articles are archived for long-term preservation</li></ul>
+    <h2>License</h2>
+    <p>All articles are published under the <strong>Creative Commons Attribution 4.0 International License (CC BY 4.0)</strong>. Full details: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">https://creativecommons.org/licenses/by/4.0/</a></p>
+  </div><aside class="home-sidebar" id="oa-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ INDEXING ══════════ -->
+<div id="page-indexing" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Indexing &amp; Abstracting</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Indexing and Abstracting</h1>
+    <p>CRJ is actively pursuing indexing in major international academic databases. Indexing ensures that published research reaches the broadest possible audience and achieves maximum citation impact.</p>
+    <h2>Current and Target Databases</h2>
+    <table class="data-table">
+      <thead><tr><th>Database</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Scopus</strong> (Elsevier)</td><td>Application in Progress</td></tr>
+        <tr><td>CrossRef / DOI</td><td>Active — All articles have DOIs</td></tr>
+        <tr><td>Google Scholar</td><td>Active</td></tr>
+        <tr><td>DOAJ (Directory of Open Access Journals)</td><td>Applied</td></tr>
+        <tr><td>Web of Science (Clarivate)</td><td>Target</td></tr>
+        <tr><td>EBSCO</td><td>Target</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box" style="margin-top:20px;">CRJ is structured to meet Scopus and Web of Science indexing criteria, including double-blind peer review, DOI assignment, ISSN registration, and an internationally diverse editorial board and authorship.</div>
+  </div><aside class="home-sidebar" id="idx-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ CONTACT ══════════ -->
+<div id="page-contact" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Contact</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Contact Us</h1>
+    <div class="info-box">
+      <p><strong>📍 Address:</strong> Street "Xhanfize Keko", No. 12, Tirana, Albania, Postcode 1001</p>
+      <p><strong>📧 Email:</strong> <a href="mailto:crj@cit.edu.al">crj@cit.edu.al</a></p>
+      <p><strong>🏛 Institution:</strong> Canadian Institute of Technology (CIT)</p>
+      <p><strong>🌐 Website:</strong> <a href="https://cit.edu.al" target="_blank">https://cit.edu.al</a></p>
+    </div>
+    <h2>Send a Message</h2>
+    <div class="form-field"><label>Your Name</label><input type="text" placeholder="Full Name"></div>
+    <div class="form-field"><label>Email Address</label><input type="email" placeholder="email@example.com"></div>
+    <div class="form-field"><label>Subject</label><input type="text" placeholder="Subject"></div>
+    <div class="form-field"><label>Message</label><textarea placeholder="Your message…"></textarea></div>
+    <button class="btn-form">Send Message</button>
+  </div><aside class="home-sidebar" id="contact-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ SUBMIT ══════════ -->
+<div id="page-submit" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Submit a Manuscript</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Submit a Manuscript</h1>
+    <p>CRJ welcomes original research articles, review papers, and case studies in Economics, Business, and Information Technology. All submissions undergo double-blind peer review.</p>
+    <div class="steps-row">
+      <div class="step-box"><div class="step-num">1</div><h3>Prepare</h3><p>Read the Author Instructions and use the official CRJ paper template.</p></div>
+      <div class="step-box"><div class="step-num">2</div><h3>Submit</h3><p>Send your manuscript as PDF and Word files to the editorial office by email.</p></div>
+      <div class="step-box"><div class="step-num">3</div><h3>Review</h3><p>Your paper undergoes double-blind peer review. Average time: 4–6 weeks.</p></div>
+    </div>
+    <h2>Submission Guidelines</h2>
+    <ul>
+      <li>Manuscripts must be original and not under review elsewhere</li>
+      <li>Papers must follow the CRJ template and formatting requirements</li>
+      <li>Include a structured abstract (max 250 words) and 5–8 keywords</li>
+      <li>References should follow APA or IEEE format as applicable</li>
+      <li>Submissions: <strong>crj@cit.edu.al</strong> with subject "Manuscript Submission – [Paper Title]"</li>
+    </ul>
+    <div class="info-box"><strong>Submission Email:</strong> <a href="mailto:crj@cit.edu.al">crj@cit.edu.al</a></div>
+  </div><aside class="home-sidebar" id="submit-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ INSTRUCTIONS ══════════ -->
+<div id="page-instructions" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Instructions for Authors</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Instructions for Authors</h1>
+    <h2>Manuscript Preparation</h2>
+    <ul><li><strong>Length:</strong> Research articles: 4,000–8,000 words; Review articles: up to 10,000 words</li><li><strong>Font:</strong> Times New Roman, 12pt, double-spaced</li><li><strong>Margins:</strong> 2.5 cm on all sides</li><li><strong>File format:</strong> Microsoft Word (.docx) and PDF</li></ul>
+    <h2>Structure</h2>
+    <ul><li>Title, author names and affiliations, abstract, keywords</li><li>Introduction, Literature Review, Methodology, Results, Discussion, Conclusion</li><li>References (APA or IEEE format)</li><li>Appendices (if applicable)</li></ul>
+    <h2>Abstract</h2>
+    <p>The abstract should be 150–250 words and structured to include: objective, methods, results, and conclusions. Do not include citations in the abstract.</p>
+    <h2>Keywords</h2>
+    <p>Provide 5–8 keywords that accurately describe the paper's subject matter.</p>
+    <h2>Figures and Tables</h2>
+    <p>All figures and tables must be numbered, titled, and cited in the text. Figures should be provided at minimum 300 DPI resolution.</p>
+    <h2>Ethics Statement</h2>
+    <p>Authors must confirm that the research was conducted ethically and that all human/animal studies complied with applicable regulations.</p>
+  </div><aside class="home-sidebar" id="instr-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ TEMPLATE ══════════ -->
+<div id="page-template" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Paper Template</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Paper Template</h1>
+    <p>All manuscripts submitted to CRJ must use the official CRJ paper template for consistent formatting.</p>
+    <div class="info-box">
+      <p><strong>📥 Download the official CRJ Microsoft Word template:</strong></p>
+      <a href="https://crj.cit.edu.al/wp-content/uploads/2014/10/crj-paper-template.docx" target="_blank" style="font-weight:700;">→ Download CRJ Paper Template (.docx)</a>
+    </div>
+    <h2>Template Requirements</h2>
+    <ul><li>Times New Roman 12pt for body text</li><li>Title in 14pt bold, centered</li><li>Author names and affiliations below the title</li><li>Abstract box with keywords section</li><li>Two-column layout for main content</li><li>References at the end following APA or IEEE</li></ul>
+  </div><aside class="home-sidebar" id="tmpl-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ CHARGES ══════════ -->
+<div id="page-charges" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Author Charges (APC)</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Article Processing Charge (APC) &amp; Open Access Policy</h1>
+    <p>CRJ is an open access journal — there are no subscription fees for readers. The following Article Processing Charges (APCs) apply to authors upon acceptance of their manuscript:</p>
+    <table class="data-table" style="max-width:500px;margin-top:16px;">
+      <thead><tr><th>Category</th><th>Fee</th></tr></thead>
+      <tbody>
+        <tr><td>Standard Article Processing Charge</td><td>Contact editorial office for current rates</td></tr>
+        <tr><td>Waiver (developing countries / hardship)</td><td>Available upon request</td></tr>
+        <tr><td>Submission Fee</td><td>None</td></tr>
+        <tr><td>Reader Access Fee</td><td>None (fully open access)</td></tr>
+      </tbody>
+    </table>
+    <div class="info-box" style="margin-top:16px;">For specific APC details, contact: <a href="mailto:crj@cit.edu.al">crj@cit.edu.al</a></div>
+  </div><aside class="home-sidebar" id="apc-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ COPYRIGHT ══════════ -->
+<div id="page-copyright" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Copyright Terms</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Copyright Terms</h1>
+    <p>Authors who publish in CRJ retain the copyright of their work. By submitting a manuscript, authors grant CRJ the right to publish, distribute, and archive the article in perpetuity.</p>
+    <h2>Author Rights</h2>
+    <ul><li>Authors retain full copyright of their published work</li><li>Authors may share and distribute their articles freely</li><li>Authors may reproduce their articles in books, theses, or other publications with proper citation</li></ul>
+    <h2>Publisher Rights</h2>
+    <ul><li>CRJ has the right to publish, host, and distribute the article</li><li>CRJ may index the article in databases and repositories</li></ul>
+  </div><aside class="home-sidebar" id="copy-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ LICENSING ══════════ -->
+<div id="page-licensing" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Licensing Terms</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Licensing Terms</h1>
+    <p>All articles published in CRJ are licensed under the <strong>Creative Commons Attribution 4.0 International License (CC BY 4.0)</strong>.</p>
+    <div class="sb-placeholder" style="max-width:220px;height:60px;margin:16px 0;">CC BY 4.0 Badge</div>
+    <h2>What This Means</h2>
+    <ul><li><strong>Share</strong> — Copy and redistribute the material in any medium or format</li><li><strong>Adapt</strong> — Remix, transform, and build upon the material for any purpose</li><li><strong>Attribution</strong> — You must give appropriate credit and indicate if changes were made</li></ul>
+    <p>Full license: <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">https://creativecommons.org/licenses/by/4.0/</a></p>
+  </div><aside class="home-sidebar" id="lic-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ PEER REVIEW ══════════ -->
+<div id="page-peerreview" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Peer Review Policy</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Peer Review Policy</h1>
+    <p>CRJ uses a rigorous <strong>double-blind peer review</strong> process. All submitted manuscripts that pass initial editorial screening are evaluated by at least two independent expert reviewers.</p>
+    <div class="steps-row">
+      <div class="step-box"><div class="step-num">1</div><h3>Submission</h3><p>Author submits manuscript to editorial office by email.</p></div>
+      <div class="step-box"><div class="step-num">2</div><h3>Editor Screen</h3><p>Editor-in-Chief reviews for scope and basic quality. Desk rejection possible.</p></div>
+      <div class="step-box"><div class="step-num">3</div><h3>Peer Review</h3><p>Sent to 2+ anonymous reviewers. Authors also anonymous (double-blind).</p></div>
+    </div>
+    <h2>Review Criteria</h2>
+    <ul><li>Originality and novelty of the research</li><li>Scientific rigor and methodological soundness</li><li>Relevance to the journal's scope</li><li>Clarity and quality of writing</li><li>Adequate referencing and citation</li></ul>
+    <h2>Timeline</h2>
+    <p>Authors can typically expect an initial decision within 4–6 weeks of submission. Revised manuscripts are generally reviewed within 2–3 weeks.</p>
+  </div><aside class="home-sidebar" id="pr-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ PLAGIARISM ══════════ -->
+<div id="page-plagiarism" class="page">
+  <div class="breadcrumb-bar"><div class="inner"><a href="#" onclick="navigate('home');return false;">Home</a><span>/</span>Plagiarism Statement</div></div>
+  <div class="page-wrap"><div class="home-cols"><div class="home-main page-content">
+    <h1>Plagiarism Statement</h1>
+    <p>CIT Review Journal has a zero-tolerance policy for plagiarism. All submissions are screened for plagiarism prior to peer review using industry-standard detection software.</p>
+    <h2>Definition</h2>
+    <ul><li>Copying text from other sources without proper attribution</li><li>Paraphrasing another's work without citation</li><li>Self-plagiarism (reusing one's own previously published work without disclosure)</li><li>Data fabrication or falsification</li></ul>
+    <h2>Consequences</h2>
+    <p>Manuscripts found to contain plagiarism will be immediately rejected. If plagiarism is detected post-publication, the article will be retracted and the authors' institutions notified.</p>
+    <h2>Acceptable Similarity</h2>
+    <p>A similarity index of up to 15% (excluding references) may be acceptable, provided matched sections are properly attributed. Final judgment rests with the Editor-in-Chief.</p>
+  </div><aside class="home-sidebar" id="plag-sidebar"></aside></div></div>
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer id="footer">
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>CIT Review and Journal</h4>
+      <p>An international, peer-reviewed, open access journal publishing original research in Economics, Business, and Information Technology.</p>
+      <p style="margin-top:10px;"><span class="footer-issn">ISSN 2960-2831</span></p>
+      <p style="margin-top:10px;">Published by Canadian Institute of Technology, Tirana, Albania.</p>
+    </div>
+    <div class="footer-col">
+      <h4>About</h4>
+      <a href="#" onclick="navigate('aims');return false;">Aims and Scope</a>
+      <a href="#" onclick="navigate('vision');return false;">Vision and Mission</a>
+      <a href="#" onclick="navigate('history');return false;">History</a>
+      <a href="#" onclick="navigate('editorial-board');return false;">Editorial Board</a>
+      <a href="#" onclick="navigate('editorial-office');return false;">Editorial Office</a>
+      <a href="#" onclick="navigate('statistics');return false;">Statistics &amp; JAR</a>
+      <a href="#" onclick="navigate('indexing');return false;">Indexing</a>
+    </div>
+    <div class="footer-col">
+      <h4>For Authors</h4>
+      <a href="#" onclick="navigate('submit');return false;">Submit a Manuscript</a>
+      <a href="#" onclick="navigate('instructions');return false;">Instructions for Authors</a>
+      <a href="#" onclick="navigate('template');return false;">Paper Template</a>
+      <a href="#" onclick="navigate('charges');return false;">Author Charges (APC)</a>
+      <a href="#" onclick="navigate('peerreview');return false;">Peer Review Policy</a>
+      <a href="#" onclick="navigate('plagiarism');return false;">Plagiarism Statement</a>
+    </div>
+    <div class="footer-col">
+      <h4>Policies</h4>
+      <a href="#" onclick="navigate('copyright');return false;">Copyright Terms</a>
+      <a href="#" onclick="navigate('licensing');return false;">Licensing Terms</a>
+      <a href="#" onclick="navigate('openaccess');return false;">Open Access Statement</a>
+      <a href="#" onclick="navigate('contact');return false;">Contact Us</a>
+      <h4 style="margin-top:16px;">Publisher</h4>
+      <a href="https://cit.edu.al" target="_blank">Canadian Institute of Technology ↗</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2014–2026 CIT Review Journal (CRJ) — Canadian Institute of Technology, Tirana, Albania. All rights reserved.</span>
+    <span><a href="#" onclick="navigate('openaccess');return false;" style="color:#aaa;">Open Access</a> · <a href="#" onclick="navigate('contact');return false;" style="color:#aaa;">Contact</a></span>
+  </div>
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const journals = [
+  { id:'may2026', label:'May 2026', year:'2026', published:'2026-05-01',
+    papers:[
+      { title:'Digital Automation and Labour Market Restructuring in Post-COVID-19 Albania', authors:'Lisian Roseni, Reis Mulita', keywords:'Digital Transformation, Labour Market, Albania, Employment', abstract:'The post-COVID-19 pandemic has led to an accelerated pace of digitalization which has transformed the Albanian labour market structurally. This paper analyses the influence of digital transformation and process automation upon employment volume, type of jobs, and required skills within Albanian private enterprises. Primary research was conducted through a survey of 110 businesses in 12 different economic sectors in 2025.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/PAPER-1_MAY2026.pdf', pages:'1-28' }
+    ]
+  },
+  { id:'nov2025', label:'November 2025', year:'2025', published:'2025-11-01',
+    papers:[
+      { title:'Web App for Cyberbullying Detection in Albanian Language Using Machine Learning', authors:'Wassim Ahmad, Bora Puka', keywords:'Cyberbullying Detection, Albanian Language, LLMs, Llama3, NLP, Zero-Shot Classification', abstract:'This study presents the development and evaluation of a web-based cyberbullying detection system tailored specifically for Albanian linguistic patterns. We implemented a detection pipeline using the Llama3 LLM quantized via the Ollama framework, achieving 82.3% accuracy with a weighted F1-score of 0.82.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper-1_November-2025.pdf', pages:'1-22' },
+      { title:'Fossil Fuel Consumption in South Africa: The Roles of Resource Rents, Urbanization, and Industrialization (1990–2019)', authors:'Osman Taştemir, Bilal Özel, Turan Bek', keywords:'Natural Resource Rents, Urbanization, Total Factor Productivity, Fossil Fuel, South Africa', abstract:'This study investigates how natural resource rents, urbanization, industrialization and total factor productivity affect fossil fuel consumption in South Africa using annual data for 1990–2019, using Fourier ADL cointegration and FMOLS/CCR estimation.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper-2_November-2025.pdf', pages:'23-45' },
+      { title:'On the Application of Elliptic Curves in Cryptography', authors:'Anxhela Baraj, Jonatan Lerga', keywords:'Elliptic Curve Cryptography, ECDLP, Scalar Multiplication, Digital Signatures, Key Exchange', abstract:'This paper presents the mathematical foundations of ECC, including elliptic curves over finite fields, group operations, and scalar multiplication. Core protocols—ECDH, ECDSA, and ECIES—are examined with a practical implementation using the NIST P-256 curve.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper-3_November-2025.pdf', pages:'46-67' },
+      { title:'Genetic Algorithm–Based Co-Optimization of PV and ESS for Improved Voltage Stability and Power System Resilience', authors:'Nur Bağnu Polat, İlker Dursun, Sezgin Kaçar', keywords:'Voltage Stability, N-1, L-index, Genetic Algorithm, PV-ESS Co-optimization', abstract:'This study proposes a PV-ESS optimisation method to improve the stability of power systems using a multi-objective Genetic Algorithm tested on IEEE 9, 14, and 30 busbar test systems.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper-4_November-2025.pdf', pages:'68-92' },
+      { title:'Design of a Power Protection System Compliant with MIL-STD-1275E', authors:'Esim Akbulut, Ali Erduman, Gizem Hazar', keywords:'MIL-STD-1275E, Transient Voltage Protection, Surge Stopper, PCB Design, LTspice', abstract:'Presents design and simulation of an input power protection system for electronic subsystems in military ground vehicles compliant with MIL-STD-1275E, implemented on a four-layer PCB and validated through LTspice.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper-5_November-2025.pdf', pages:'93-114' }
+    ]
+  },
+  { id:'may2025', label:'May 2025', year:'2025', published:'2025-05-01',
+    papers:[
+      { title:'A Core Framework for a Big Data Maturity Model in the Telecommunications Industry', authors:'Fatmir Desku, Adrian Besimi', keywords:'Big Data, Maturity Model, Telecommunication, Performance', abstract:'This paper identifies essential dimensions of a Big Data Maturity Model tailored for telecommunications using qualitative research and expert interviews analyzed via Atlas.ti.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper_1_may_2025.pdf', pages:'1-24' },
+      { title:"Adopting Lithuania's Circular Economy Blueprint: A Data-Driven Roadmap for Albania's Waste Policy", authors:'Elena Myftaraj, Irena Fata, Nihat Adar, Endri Plasari', keywords:'Municipal Solid Waste, Circular Economy, Landfill Reduction, K-Means Clustering, EU Accession', abstract:"Uses K-Means clustering, STL decomposition, and regression simulation to model how Albania can adopt Lithuania's circular economy practices to meet EU waste directives.", pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper_2_may_2025.pdf', pages:'25-48' },
+      { title:'Bridging the Digital Divide in Albanian Agriculture: A UTAUT-Based Study on Farmers\' Adoption of E-Agriculture Tools', authors:'Anila Boshnjaku, Endri Plasari, Irena Fata', keywords:'E-Agriculture, ICT Adoption, UTAUT, Structural Equation Modeling, Digital Transformation', abstract:'Examines factors influencing Albanian farmers\' adoption of e-agriculture tools using the UTAUT framework and SEM applied to data from 854 farmers across three agricultural regions.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper_3_may_2025.pdf', pages:'49-72' },
+      { title:'Sentiment Trends Across Agile and Digital Transformation Topics in Reddit Discussions', authors:'Florenc Hidri, Blerta Abazi Chaushi, Gladiola Tigno', keywords:'Agile Methodology, Digital Transformation, Sentiment Analysis, Topic Modeling, NLP, Reddit', abstract:'Analyzes 3,777 Reddit threads using LDA topic modeling and VADER sentiment analysis to map community opinions across Agile and Digital Transformation topics.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper_4_may_2025.pdf', pages:'73-95' },
+      { title:'The Global Role and Impact of the GDPR: An International Comparative Approach', authors:'Enriko Ceko', keywords:'GDPR, Data Privacy, European Regulations, International Laws, Data Protection', abstract:'Examines the international impact of GDPR through a comparative legal and policy analysis of the US, Brazil, China, and Albania\'s data protection frameworks.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper_5_may_2025.pdf', pages:'96-118' },
+      { title:'Artificial Intelligence in Management: Transforming Business Practices and Corporate Governance', authors:'Rezart Dibra, Fabjan Pjetri, Manuela Mece', keywords:'Artificial Intelligence in Management, AI Processes, Human Resource Management', abstract:'Explores how AI reshapes business practices across decision-making, operations, customer engagement, and strategic planning, discussing challenges related to ethics, bias, and workforce displacement.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Paper_6_may_2025.pdf', pages:'119-138' }
+    ]
+  },
+  { id:'nov2024', label:'November 2024', year:'2024', published:'2024-11-01',
+    papers:[
+      { title:'Enhancing Education Through the Partnership Between Vocational Schools, Universities, and NGOs in Albania', authors:'Manuela Meçe, Entela Kalleshi, Elda Zotaj, Rebeka Ribaj, Eldisa Zhebo (Lloshi)', keywords:'Cooperation, Vocational Schools, Universities, NGOs, Education System', abstract:'Explores the cooperation model between Vocational Schools, Universities, and NGOs in Albania, focusing on benefits, contributions, and challenges each party faces.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Corrected_Thesis_1.pdf', pages:'1-22' },
+      { title:'Empirical Evidence on the Real Money Demand Determinants and Its Stability in North Macedonia', authors:'Merale Fetahi-Vehapi, Fatbardha Jonuzi', keywords:'Real Money Demand, Cointegration, VECM, Determinants, Stability, North Macedonia', abstract:'Empirically examines determinants of real money demand and its stability in North Macedonia over Q1 1997–Q4 2020 using Cointegration analysis and VECM.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Corrected_Thesis_2.pdf', pages:'23-44' },
+      { title:'A Worldwide ISO Standards Trend Perspective Analysis', authors:'Enriko Ceko', keywords:'Quality Management, ISO Standards, ISO 9001, ISO 27001, Certification', abstract:'Investigates trends in ISO standards for 2011–2023 using exploratory analysis, focusing on patterns that benefit business development and ISO certifications as competitive advantage.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Corrected_Thesis_3.pdf', pages:'45-66' },
+      { title:'Revolutionizing Course Selection in Higher Education: A Hidden Markov Chain-Based Recommender System', authors:'Muhammed Talha Şahin, Hüseyin Can Ergün, Mine Çakır, Nihat Adar, Savaş Okyay', keywords:'Course Recommendation, Sequential Recommendation, Markov Chains, Higher Education', abstract:'Presents a sequential course enrollment recommendation system using the Hidden Markov Chain method, outperforming traditional Markov Chain implementation by 0.15 average accuracy.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Corrected_Thesis_4.pdf', pages:'67-88' },
+      { title:'A Smart Data-Driven Diagnosis Framework for Lower Back Pain Anomaly Detection', authors:'Sinem Bozkurt Keser, Savaş Okyay, Nihat Adar', keywords:'Lower Back Pain, Machine Learning, Classification, AI in Healthcare', abstract:'Analyzes a public dataset using classification algorithms (Bagging, XGBoost, Gradient Boosting, Extra Trees, Random Forest); the Bagging classifier achieved the highest precision (84.8%), recall (88.6%), and F-score (86.7%).', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Corrected_Thesis_5.pdf', pages:'89-110' },
+      { title:'User Behavior Analysis Over a Dynamic Implemented Zero Trust Network Architecture', authors:'Greta Germizi, Wassim Ahmad', keywords:'Zero Trust Network Architecture, Dynamic Framework, Cybersecurity, Machine Learning, Threat Intelligence', abstract:'Implements a ZTNA combined with ML-based user behavior analysis using solely open-source tools, providing real-time threat detection and automated response for accessible organizational cybersecurity.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Corrected_Thesis_6.pdf', pages:'111-132' }
+    ]
+  },
+  { id:'may2024', label:'May 2024', year:'2024', published:'2024-05-01',
+    papers:[
+      { title:'Empirical Analysis of the Twin Deficits Hypothesis in the Republic of North Macedonia', authors:'Merale Fetahi-Vehapi, Fatbardha Jonuzi, Florenta Jonuzi', keywords:'Twin Deficits, ARDL Model, Budget Deficit, Current Account Deficit, North Macedonia', abstract:'Tests the twin deficits hypothesis in North Macedonia using quarterly data Q1 2001–Q4 2022 through the ARDL model, finding short and long-run relationships among budget deficit, current account deficit, exchange rate, GDP, and government expenditure.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/1.pdf', pages:'1-24' },
+      { title:'A Quality Managerial Approach on the Relationship Between the Digital Development Level and the Cyber Security Index', authors:'Enriko Ceko', keywords:'Digitalization, Cyber Security, ISO Standards, Regression Analysis, Quality Management', abstract:'Verifies the level of relations between digitalization and cyber security through regression analysis, recommending investment in both digitalization and cyber security as simultaneous drivers of national development.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/2.pdf', pages:'25-44' },
+      { title:"The Technological Revolution's Impact on Business Management", authors:'Jaroslav Kollmann, Daniel Chamrada, Pavel Cepák', keywords:'Technology Integration, Industry 4.0, Organizational Strategy, Business Competitiveness', abstract:'Examines the influence of technological progress on organizational management in Czech Republic enterprises of various sizes through comparative analysis and statistical correlation.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/3.pdf', pages:'45-66' },
+      { title:'Advanced Computer Architecture Optimization for Machine Learning/Deep Learning', authors:'Shefqet Meda, Ervin Domazet', keywords:'Computer Architecture, Machine Learning, Deep Learning, GPU, TPU, Quantization, DVFS', abstract:'Reviews optimization approaches for ML/DL workloads covering hardware accelerators (CPU, GPU, TPU), software framework enhancements, sparsity, quantization, and compression methods.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/4.pdf', pages:'67-96' },
+      { title:'Revolutionizing Enterprise Resource Planning: A Transformation Journey in the Albanian Telecommunication Industry', authors:'Eralda Caushi, Klejda Caushi, Malvina Halilaj', keywords:'ERP, SAP, Cloudification, GCP, Telecommunications', abstract:'Explores critical aspects of SAP-based ERP transformation in Albanian telecommunications including cloudification on GCP, involving 32 local and 45 global stakeholders with a 3 million Euro implementation cost.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/5.pdf', pages:'97-118' }
+    ]
+  },
+  { id:'nov2023', label:'November 2023', year:'2023', published:'2023-11-01',
+    papers:[
+      { title:'Machine Learning Methods in Evaluating the Impact of Economic Factors on the Consumer Price Index in Albania', authors:'Lule Basha, Llukan Puka', keywords:'Consumer Price Index, Exchange Rate, Imports, Machine Learning, Decision-Tree', abstract:'Investigates Random Forest and XGBoost algorithms in predicting CPI behavior in Albania from January 2007 to September 2023, finding Random Forest demonstrates superior accuracy.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/crj-nov-issue-1.pdf', pages:'1-20' },
+      { title:'On Relations Between Cyber Security Index and ISO 27001 Standard Index in Western Balkan Countries', authors:'Enriko Ceko', keywords:'Cyber Security Index, ISO 27001, Western Balkans, Information Technology', abstract:'Illustrates the relationships between ISO 27001 certification index and the cyber security index across Western Balkan nations using regression analysis.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/Enriko_Ceko.pdf', pages:'21-38' },
+      { title:'Accounting of Inventories in Service Sphere Enterprises Based on Modern Technologies', authors:'Tural Alakbarov', keywords:'Accounting, Inventory, Finance, Costs, Assets, Management', abstract:'Explores improving inventory accounting in service enterprises using modern methods and technologies for enhanced financial reporting transparency and decision-making.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/crj-nov-issue-3.pdf', pages:'39-58' },
+      { title:'The First Public Offering of a Corporate Bond Issuance and the Expected Impact on the Securities Market and Economy in Albania', authors:'Eugen Musta, Elvin Meka', keywords:'Albanian Stock Exchange, Corporate Bond, Market Liquidity, Financial Sector, Economic Growth', abstract:'Investigates the anticipated importance of the inaugural corporate bond issuance through public offering on the Albanian Stock Exchange (ALSE) and its potential ramifications.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/crj-nov-issue-4.pdf', pages:'59-80' },
+      { title:'Opening the "Black Box" of the Labor Market in Macedonia: Youth Unemployment', authors:'Viktorija Atanasovska-Noveski, Venera Krliu, Tijana Angjelkovska', keywords:'Youth Unemployment, Job Search, Discouraged Workers, Macedonia', abstract:'Examines determinants of youth unemployment in Macedonia using the two-step CMP model with SWTS survey data from the ILO, supplemented by semi-structured interviews.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/crj-nov-issue-5.pdf', pages:'81-102' },
+      { title:'Exploring the Impact of Tax Divergence in Financial Reporting: A Case of Albania (2022)', authors:'Julian Saraci', keywords:'Tax Divergence, Financial Reporting, Tax Laws, Accounting Standards, Albania', abstract:'Investigates the connection between tax divergence and financial reporting in Albania using a post-positivist paradigm, combining qualitative analysis of accounting standards with a quantitative questionnaire survey.', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/crj-nov-issue-6.pdf', pages:'103-124' }
+    ]
+  },
+  { id:'may2023', label:'May 2023', year:'2023', published:'2023-05-01',
+    papers:[
+      { title:'Exploring the Relationship Between Quality and Innovation and Revenue Growth: A Case Study of Three Global Technology Giants', authors:'Jaroslav Kollmann, Pavel Cepák', keywords:'Trends, Quality, Innovation, Technology Companies, Revenue', abstract:'Explores market trends adopted by Apple Inc., Samsung, and Xiaomi and their impact on revenue through content analysis, SWOT analysis, and correlation analysis. DOI: 10.59380/crj.v1i1.2752', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/CIT-CRJ-May-2023-1.pdf', pages:'1-20' },
+      { title:'On State of the Art Research Trends in Albania Regarding Digitalization, Automation and Sustainable Development', authors:'Dimitrios A. Karras', keywords:'Sustainable Development, Digitalization, Digital Transformation, Automation, Albania', abstract:'Analyzes the emerging research coupling between digitalization, automation, and sustainability in Albania, spanning studies after 2015. DOI: 10.59380/crj.v1i1.2753', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/CIT-CRJ-May-2023-2.pdf', pages:'21-42' },
+      { title:'Current Academic Needs Versus Business Demands for Human Resource Skills and Competencies', authors:'Elvira Fetahu, Shpëtim Çerri, Marsel Sulanjaku', keywords:'Higher Education, Curricula, Tourism, Human Resources, Skills', abstract:'Explores the gap between academic offers and business skill demands in the tourism and production sectors in the Elbasan region of Albania. DOI: 10.59380/crj.v1i1.2754', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/CIT-CRJ-May-2023-3.pdf', pages:'43-64' },
+      { title:"The Impact of Dividend Policy on Stock Price Volatility: Empirical Evidence from Developing Countries. Case of Türkiye: 2017-2019", authors:'Julian Saraci', keywords:'Dividend Policy, Stock Market Volatility, Dividend Yield, Asset Growth, Türkiye', abstract:"Investigates dividend policy's impact on stock price volatility in 30 companies from Türkiye Stock Exchange using panel data for 2017–2019. DOI: 10.59380/crj.v1i1.2755", pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/CIT-CRJ-May-2023-4.pdf', pages:'65-86' },
+      { title:'On the Relation Between Entrepreneurship and Quality Management', authors:'Enriko Ceko, Orjeta Jaupaj', keywords:'Entrepreneurship, ISO Standards, Quality Management, Competitive Advantage', abstract:'Researches relations between the Index of Entrepreneurship and the Index of ISO Standards through regression analysis. DOI: 10.59380/crj.v1i1.2756', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/CIT-CRJ-May-2023-5.pdf', pages:'87-106' },
+      { title:'Community Assessment of Public Services and its Role in Decision-Making for Local Development', authors:'Dr. Parashqevi Draci, Majlinda Velcani', keywords:'Public Decision-Making, Community Participation, Public Services, Local Development', abstract:'Highlights resident perceptions about public services and participation in public decision-making for the allocation of economic resources by local government. DOI: 10.59380/crj.v1i1.2757', pdf:'https://crj.cit.edu.al/wp-content/uploads/2014/10/CIT-CRJ-May-2023-6.pdf', pages:'107-126' }
+    ]
+  }
+];
+
+// ── SIDEBAR HTML (reused on inner pages) ──────────────────────────────────
+function makeSidebar() {
+  return `
+  <a href="#" onclick="navigate('submit');return false;" class="btn-submit-main">📄 Submit a Manuscript</a>
+  <div class="sb-block"><div class="sb-head">Journal Information</div><div class="sb-body">
+    <div class="issn-display">ISSN: 2960-2831</div>
+    <p><strong>Type:</strong> Open Access · <strong>Review:</strong> Double-blind</p>
+    <p><strong>Frequency:</strong> Bi-annual (May &amp; November)</p>
+    <p><strong>Publisher:</strong> CIT, Tirana, Albania</p>
+  </div></div>
+  <div class="sb-block"><div class="sb-head">Quick Links</div><div class="sb-body">
+    <ul class="sb-list">
+      <li><a href="#" onclick="navigate('aims');return false;">Aims and Scope</a></li>
+      <li><a href="#" onclick="navigate('editorial-board');return false;">Editorial Board</a></li>
+      <li><a href="#" onclick="navigate('instructions');return false;">Author Instructions</a></li>
+      <li><a href="#" onclick="navigate('template');return false;">Paper Template</a></li>
+      <li><a href="#" onclick="navigate('peerreview');return false;">Peer Review Policy</a></li>
+      <li><a href="#" onclick="navigate('openaccess');return false;">Open Access</a></li>
+      <li><a href="#" onclick="navigate('indexing');return false;">Indexing</a></li>
+      <li><a href="#" onclick="navigate('contact');return false;">Contact</a></li>
+    </ul>
+  </div></div>`;
+}
+
+// ── RENDER ARTICLE ENTRY (OJS style) ──────────────────────────────────────
+function renderEntry(paper, idx) {
+  const absId = 'abs_' + idx + '_' + Math.random().toString(36).slice(2,6);
+  return `<div class="article-entry">
+    <h4><a href="${paper.pdf}" target="_blank">${paper.title}</a></h4>
+    <div class="article-authors">${paper.authors}</div>
+    <div class="article-pages">pp. ${paper.pages}</div>
+    <div class="keywords-line"><strong>Keywords:</strong> ${paper.keywords}</div>
+    <button class="abstract-toggle-btn" onclick="toggleAbs('${absId}',this)">▶ Abstract</button>
+    <div class="abstract-text" id="${absId}">${paper.abstract}</div>
+    <div class="article-links">
+      <a href="${paper.pdf}" target="_blank" class="article-link-btn pdf">📄 PDF</a>
+      <a href="${paper.pdf}" target="_blank" class="article-link-btn">Full Article</a>
+    </div>
+  </div>`;
+}
+
+function toggleAbs(id, btn) {
+  const el = document.getElementById(id);
+  const open = el.classList.toggle('open');
+  btn.textContent = open ? '▼ Abstract' : '▶ Abstract';
+}
+
+// ── BUILD HOME ────────────────────────────────────────────────────────────
+function buildHome() {
+  const tabsEl = document.getElementById('journalTabs');
+  const contentsEl = document.getElementById('journalTabContents');
+  document.getElementById('current-issue-count').textContent = journals[0].papers.length + ' article' + (journals[0].papers.length !== 1 ? 's' : '');
+
+  journals.forEach((j, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-btn' + (i===0?' active':'');
+    btn.textContent = j.label;
+    btn.onclick = () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tc-'+j.id).classList.add('active');
+    };
+    tabsEl.appendChild(btn);
+
+    const div = document.createElement('div');
+    div.className = 'tab-content' + (i===0?' active':'');
+    div.id = 'tc-'+j.id;
+    div.innerHTML = `<div class="article-section-bar" style="margin:0;">Articles — ${j.label} Issue · Published: ${j.published}</div>` + j.papers.map((p,idx) => renderEntry(p, i*100+idx)).join('');
+    contentsEl.appendChild(div);
+  });
+}
+
+// ── BUILD ARCHIVE ─────────────────────────────────────────────────────────
+function buildArchive() {
+  const grid = document.getElementById('archiveGrid');
+  const gradients = [
+    'linear-gradient(160deg,#1a1a2e,#Ed1c24)',
+    'linear-gradient(160deg,#1a2a4a,#2c4a7c)',
+    'linear-gradient(160deg,#2a1a1a,#7c1a1a)',
+    'linear-gradient(160deg,#1a3a1a,#2c6a2c)',
+    'linear-gradient(160deg,#2a1a4a,#4a1aaa)',
+    'linear-gradient(160deg,#3a2a1a,#7a5a1a)',
+    'linear-gradient(160deg,#1a3a4a,#1a7a8a)',
+  ];
+  journals.forEach((j, i) => {
+    const card = document.createElement('div');
+    card.className = 'archive-card';
+    card.onclick = () => {
+      navigate('home');
+      setTimeout(() => {
+        document.querySelectorAll('.tab-btn')[i]?.click();
+        document.querySelector('.issue-header-bar')?.scrollIntoView({behavior:'smooth'});
+      }, 60);
+    };
+    card.innerHTML = `
+      <div class="archive-cover" style="background:${gradients[i%gradients.length]};">Cover</div>
+      <div class="archive-card-body">
+        <div class="archive-year-tag">${j.year}</div>
+        <h3>CIT Review Journal<br>${j.label} Issue</h3>
+        <p>${j.papers.length} article${j.papers.length!==1?'s':''} · ${j.published}</p>
+      </div>`;
+    grid.appendChild(card);
+  });
+}
+
+// ── BUILD ALL ARTICLES ────────────────────────────────────────────────────
+function buildAllArticles() {
+  const list = document.getElementById('allArticlesList');
+  journals.forEach(j => {
+    j.papers.forEach(p => {
+      const div = document.createElement('div');
+      div.className = 'all-articles-item';
+      div.innerHTML = `
+        <div class="all-articles-year">${j.year}<br>${j.label.split(' ')[0].slice(0,3)}</div>
+        <div class="all-articles-info">
+          <h4><a href="${p.pdf}" target="_blank">${p.title}</a></h4>
+          <p>${p.authors} &mdash; <em>${j.label} Issue</em> &nbsp;·&nbsp; pp. ${p.pages}</p>
+          <p style="font-size:11px;color:#aaa;margin-top:2px;">${p.keywords}</p>
+        </div>`;
+      list.appendChild(div);
+    });
+  });
+}
+
+// ── INJECT SIDEBARS ON INNER PAGES ───────────────────────────────────────
+function injectSidebars() {
+  const ids = ['aims-sidebar','vision-sidebar','int-sidebar','hist-sidebar','stats-sidebar','eb-sidebar','eo-sidebar','oa-sidebar','idx-sidebar','contact-sidebar','submit-sidebar','instr-sidebar','tmpl-sidebar','apc-sidebar','copy-sidebar','lic-sidebar','pr-sidebar','plag-sidebar'];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML = makeSidebar();
+  });
+}
+
+// ── NAVIGATE ──────────────────────────────────────────────────────────────
+const pageMap = {
+  home:'page-home', issues:'page-issues', articles:'page-articles',
+  aims:'page-aims', vision:'page-vision', integration:'page-integration',
+  history:'page-history', statistics:'page-statistics',
+  'editorial-board':'page-editorial-board', 'editorial-office':'page-editorial-office',
+  openaccess:'page-openaccess', indexing:'page-indexing',
+  contact:'page-contact', submit:'page-submit', instructions:'page-instructions',
+  template:'page-template', charges:'page-charges', copyright:'page-copyright',
+  licensing:'page-licensing', peerreview:'page-peerreview', plagiarism:'page-plagiarism',
+  contribute:'page-submit'
+};
+
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const id = pageMap[page] || 'page-home';
+  document.getElementById(id)?.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────
+buildHome();
+buildArchive();
+buildAllArticles();
+injectSidebars();
+</script>
+</body>
+</html>
